@@ -3,8 +3,8 @@ import './globals.css'
 import Iridescence from '@/components/Iridescence'
 
 export const metadata: Metadata = {
-  title: '释放创意 - 情绪释放挑战',
-  description: '帮助你完成一次完整的困扰释放挑战流程',
+  title: '释放法引导',
+  description: '',
 }
 
 export default function RootLayout({
