@@ -27,6 +27,15 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-RS9NQ92ZSD');
+            
+            // 调试信息
+            console.log('Google Analytics loaded with ID: G-RS9NQ92ZSD');
+            
+            // 发送测试事件
+            gtag('event', 'page_view', {
+              page_title: document.title,
+              page_location: window.location.href
+            });
           `}
         </Script>
 
