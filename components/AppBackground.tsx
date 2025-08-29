@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import Iridescence from './Iridescence'
 import NightModeToggle from './NightModeToggle'
+import { useTheme } from '@/contexts/ThemeContext'
 
 export default function AppBackground() {
-    const [isNightMode, setIsNightMode] = useState(false)
+    const { isNightMode, setIsNightMode } = useTheme()
 
     // 海洋蓝夜间模式颜色 - 深邃的海洋蓝调
-    const nightColor: [number, number, number] = [0.1, 0.5, 0.8]
+    const nightColor: [number, number, number] = [0.15, 0.25, 0.4]
     // 保持原来的默认颜色
     const dayColor: [number, number, number] = [1, 1, 1]
 

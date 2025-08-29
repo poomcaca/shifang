@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { challengeQuestions } from '@/data/questions'
 import Iridescence from './Iridescence'
+import { useTheme } from '@/contexts/ThemeContext'
 
 interface ChallengeSceneProps {
   selectedEmotion: string
@@ -11,6 +12,7 @@ interface ChallengeSceneProps {
 }
 
 export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: ChallengeSceneProps) {
+  const { textColor, isNightMode } = useTheme()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
   const [showAnswer, setShowAnswer] = useState(false)
@@ -45,12 +47,16 @@ export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: 
   const currentQuestion = challengeQuestions[currentQuestionIndex]
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative text-slate-700 text-lg font-semibold tracking-tight" style={{ fontFamily: '"SF Pro Rounded", "Inter", system-ui, sans-serif' }}>
+    <div className={`min-h-screen flex flex-col items-center justify-center p-4 relative ${textColor} text-lg font-semibold tracking-tight`} style={{ fontFamily: '"SF Pro Rounded", "Inter", system-ui, sans-serif' }}>
       {/* 退出按钮 */}
       <div className="fixed top-4 right-4">
         <button
           onClick={onExit}
-          className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg transition-all duration-300 border border-white/30"
+          className={`px-4 py-2 backdrop-blur-sm rounded-lg transition-all duration-300 border ${
+            isNightMode 
+              ? 'bg-white/20 hover:bg-white/30 border-white/30 text-white' 
+              : 'bg-black/10 hover:bg-black/20 border-black/20 text-gray-900'
+          }`}
         >
           退出
         </button>
@@ -115,7 +121,11 @@ export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: 
               <button
                 key={index}
                 onClick={() => handleAnswer(option)}
-                className="w-full py-3 px-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-md transition-all duration-300 border border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-white/10"
+                className={`w-full py-3 px-3 backdrop-blur-sm rounded-md transition-all duration-300 border hover:shadow-lg ${
+                  isNightMode
+                    ? 'bg-white/10 hover:bg-white/20 border-white/20 hover:border-white/40 hover:shadow-white/10 text-white'
+                    : 'bg-black/5 hover:bg-black/10 border-black/10 hover:border-black/20 hover:shadow-black/10 text-gray-900'
+                }`}
                 disabled={showAnswer}
               >
                 {option}
@@ -131,8 +141,12 @@ export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: 
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-500 ${
                 index <= currentQuestionIndex 
-                  ? 'bg-white/80 shadow-md shadow-white/30 ring-1 ring-white/50' 
-                  : 'bg-white/20 border border-white/30'
+                  ? isNightMode
+                    ? 'bg-white/80 shadow-md shadow-white/30 ring-1 ring-white/50'
+                    : 'bg-gray-800/80 shadow-md shadow-gray-800/30 ring-1 ring-gray-800/50'
+                  : isNightMode
+                    ? 'bg-white/20 border border-white/30'
+                    : 'bg-gray-800/20 border border-gray-800/30'
               }`}
             />
           ))}

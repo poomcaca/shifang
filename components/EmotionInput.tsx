@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react'
 import { emotionCategories } from '@/data/emotions'
+import { useTheme } from '@/contexts/ThemeContext'
 
 interface EmotionInputProps {
   onEmotionSelect: (emotion: string) => void
 }
 
 export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
+  const { textColor, secondaryTextColor, isNightMode } = useTheme()
   const [customEmotion, setCustomEmotion] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([])
@@ -46,7 +48,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-center text-gray-900">
+        <h1 className={`text-2xl md:text-3xl font-bold text-center ${textColor}`}>
           此刻，你的感受是什么？
         </h1>
 
@@ -56,7 +58,11 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
             value={customEmotion}
             onChange={(e) => setCustomEmotion(e.target.value)}
             placeholder="请描述你的感受..."
-            className="w-full h-32 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+            className={`w-full h-32 p-4 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
+              isNightMode 
+                ? 'border-gray-600 bg-gray-800/50 text-white placeholder-gray-300' 
+                : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
+            }`}
           />
 
           {/* 显示已选择的情感词条标签 */}
@@ -65,12 +71,20 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
               {selectedEmotions.map((emotion) => (
                 <span
                   key={emotion}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                  className={`inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full ${
+                    isNightMode 
+                      ? 'bg-blue-900/50 text-blue-200' 
+                      : 'bg-blue-100 text-blue-800'
+                  }`}
                 >
                   {emotion}
                   <button
                     onClick={() => removeEmotion(emotion)}
-                    className="ml-1 text-blue-600 hover:text-blue-800 text-sm"
+                    className={`ml-1 text-sm ${
+                      isNightMode 
+                        ? 'text-blue-300 hover:text-blue-100' 
+                        : 'text-blue-600 hover:text-blue-800'
+                    }`}
                   >
                     ×
                   </button>
@@ -82,7 +96,11 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           <button
             onClick={handleCustomSubmit}
             disabled={!customEmotion.trim()}
-            className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg font-medium disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+            className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+              isNightMode
+                ? 'bg-blue-700 text-white disabled:bg-gray-700 disabled:cursor-not-allowed hover:bg-blue-600'
+                : 'bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700'
+            }`}
           >
             开始感受
           </button>
@@ -102,10 +120,13 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
                 onClick={() => setSelectedCategory(
                   selectedCategory === category.name ? null : category.name
                 )}
-                className={`py-3 px-4 rounded-lg font-medium transition-colors ${selectedCategory === category.name
+                className={`py-3 px-4 rounded-lg font-medium transition-colors ${
+                  selectedCategory === category.name
                     ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
-                  }`}
+                    : isNightMode
+                      ? 'bg-gray-800/50 text-gray-200 hover:bg-gray-700/50 hover:shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
+                }`}
               >
                 {category.name}
               </button>
@@ -115,7 +136,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           {/* 情绪词汇选择 */}
           {selectedCategory && (
             <div className="space-y-3 mt-6">
-              <h4 className="font-medium text-gray-900 text-center">{selectedCategory}</h4>
+              <h4 className={`font-medium text-center ${textColor}`}>{selectedCategory}</h4>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-96 overflow-y-auto scrollbar-smooth pb-12">
                 <style jsx>{`
                   .scrollbar-smooth {
@@ -149,10 +170,15 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
                     <button
                       key={emotion}
                       onClick={() => handleEmotionSelect(emotion)}
-                      className={`py-2 px-3 text-sm rounded-lg transition-all duration-200 ease-in-out text-left transform hover:scale-105 ${selectedEmotions.includes(emotion)
-                          ? 'bg-blue-200 text-blue-800 border border-blue-300 shadow-sm'
-                          : 'bg-gray-50 hover:bg-blue-100 hover:shadow-sm'
-                        }`}
+                      className={`py-2 px-3 text-sm rounded-lg transition-all duration-200 ease-in-out text-left transform hover:scale-105 ${
+                        selectedEmotions.includes(emotion)
+                          ? isNightMode
+                            ? 'bg-blue-900/50 text-blue-200 border border-blue-700 shadow-sm'
+                            : 'bg-blue-200 text-blue-800 border border-blue-300 shadow-sm'
+                          : isNightMode
+                            ? 'bg-gray-800/30 text-gray-200 hover:bg-blue-900/30 hover:shadow-sm'
+                            : 'bg-gray-50 hover:bg-blue-100 hover:shadow-sm'
+                      }`}
                     >
                       {emotion}
                     </button>

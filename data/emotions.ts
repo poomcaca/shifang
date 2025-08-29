@@ -2,7 +2,7 @@ import { EmotionCategory } from '@/types'
 
 export const emotionCategories: EmotionCategory[] = [
   {
-    name: '情绪冷漠',
+    name: '万念俱灰',
     emotions: [
       '累了', '懒惰', '心情大坏', '低落', '虚无感', '心如死灰', '低潮',
       '空虚', '彷徨无措', '没有希望', '困惑', '愚昧', '没出路', '无力',
@@ -13,7 +13,7 @@ export const emotionCategories: EmotionCategory[] = [
     ]
   },
   {
-    name: '悲伤',
+    name: '悲苦',
     emotions: [
       '虚无感', '伤心', '抱怨', '责备', '绝望', '沮丧', '悲哀', '内疚',
       '困惑', '受伤', '心痛', '委屈', '苦恼', '无力', '疲惫', '要是...多好',
@@ -35,7 +35,7 @@ export const emotionCategories: EmotionCategory[] = [
     ]
   },
   {
-    name: '欲望',
+    name: '贪求',
     emotions: [
       '挫折', '期待', '低潮', '自卑', '愤怒', '欲望', '苛刻', '狂躁',
       '愤怒的', '寂寞', '过度积极', '困扰', '饥饿', '我行我素',
