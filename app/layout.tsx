@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import './globals.css'
-import Iridescence from '@/components/Iridescence'
+import AppBackground from '@/components/AppBackground'
 
 export const metadata: Metadata = {
   title: '释放法引导',
@@ -39,9 +39,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <Iridescence color={[1, 1, 1]} mouseReact={true} amplitude={0.15} speed={0.5} />
-        </div>
+        <AppBackground />
         <main className="container mx-auto px-4 py-8 max-w-2xl relative z-10">
           {children}
         </main>

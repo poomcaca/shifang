@@ -116,7 +116,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           {selectedCategory && (
             <div className="space-y-3 mt-6">
               <h4 className="font-medium text-gray-900 text-center">{selectedCategory}</h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-96 overflow-y-auto scrollbar-smooth pb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-96 overflow-y-auto scrollbar-smooth pb-12">
                 <style jsx>{`
                   .scrollbar-smooth {
                     scrollbar-width: thin;
