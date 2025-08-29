@@ -58,11 +58,10 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
             value={customEmotion}
             onChange={(e) => setCustomEmotion(e.target.value)}
             placeholder="请描述你的感受..."
-            className={`w-full h-32 p-4 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              isNightMode 
-                ? 'border-gray-600 bg-gray-800/50 text-white placeholder-gray-300' 
-                : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
-            }`}
+            className={`w-full h-32 p-4 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${isNightMode
+              ? 'border-gray-600 bg-gray-800/50 text-white placeholder-gray-300'
+              : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
+              }`}
           />
 
           {/* 显示已选择的情感词条标签 */}
@@ -71,20 +70,18 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
               {selectedEmotions.map((emotion) => (
                 <span
                   key={emotion}
-                  className={`inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full ${
-                    isNightMode 
-                      ? 'bg-blue-900/50 text-blue-200' 
-                      : 'bg-blue-100 text-blue-800'
-                  }`}
+                  className={`inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full ${isNightMode
+                    ? 'bg-blue-900/50 text-blue-200'
+                    : 'bg-blue-100 text-blue-800'
+                    }`}
                 >
                   {emotion}
                   <button
                     onClick={() => removeEmotion(emotion)}
-                    className={`ml-1 text-sm ${
-                      isNightMode 
-                        ? 'text-blue-300 hover:text-blue-100' 
-                        : 'text-blue-600 hover:text-blue-800'
-                    }`}
+                    className={`ml-1 text-sm ${isNightMode
+                      ? 'text-blue-300 hover:text-blue-100'
+                      : 'text-blue-600 hover:text-blue-800'
+                      }`}
                   >
                     ×
                   </button>
@@ -96,11 +93,10 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           <button
             onClick={handleCustomSubmit}
             disabled={!customEmotion.trim()}
-            className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
-              isNightMode
-                ? 'bg-blue-700 text-white disabled:bg-gray-700 disabled:cursor-not-allowed hover:bg-blue-600'
-                : 'bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700'
-            }`}
+            className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${isNightMode
+              ? 'bg-blue-700 text-white disabled:bg-gray-700 disabled:cursor-not-allowed hover:bg-blue-600'
+              : 'bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700'
+              }`}
           >
             开始感受
           </button>
@@ -110,7 +106,25 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
 
         {/* 情感分类选择 */}
         <div className="space-y-4">
-
+          {/* 快捷词条选择 */}
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {['想要安全', '想要被认同', '想要控制'].map((quickEmotion) => (
+              <button
+                key={quickEmotion}
+                onClick={() => handleEmotionSelect(quickEmotion)}
+                className={`py-2 px-3 text-sm rounded-lg transition-all duration-200 ease-in-out transform hover:scale-105 ${selectedEmotions.includes(quickEmotion)
+                  ? isNightMode
+                    ? 'bg-blue-900/50 text-blue-200 border border-blue-700 shadow-sm'
+                    : 'bg-blue-200 text-blue-800 border border-blue-300 shadow-sm'
+                  : isNightMode
+                    ? 'bg-gray-800/30 text-gray-200 hover:bg-blue-900/30 hover:shadow-sm'
+                    : 'bg-gray-50 hover:bg-blue-100 hover:shadow-sm'
+                  }`}
+              >
+                {quickEmotion}
+              </button>
+            ))}
+          </div>
 
           {/* 分类选择 */}
           <div className="grid grid-cols-2 gap-3">
@@ -120,13 +134,12 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
                 onClick={() => setSelectedCategory(
                   selectedCategory === category.name ? null : category.name
                 )}
-                className={`py-3 px-4 rounded-lg font-medium transition-colors ${
-                  selectedCategory === category.name
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : isNightMode
-                      ? 'bg-gray-800/50 text-gray-200 hover:bg-gray-700/50 hover:shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
-                }`}
+                className={`py-3 px-4 rounded-lg font-medium transition-colors ${selectedCategory === category.name
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : isNightMode
+                    ? 'bg-gray-800/50 text-gray-200 hover:bg-gray-700/50 hover:shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
+                  }`}
               >
                 {category.name}
               </button>
@@ -137,8 +150,9 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           {selectedCategory && (
             <div className="space-y-3 mt-6">
               <h4 className={`font-medium text-center ${textColor}`}>{selectedCategory}</h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-96 overflow-y-auto scrollbar-smooth pb-12">
-                <style jsx>{`
+              <div className="max-h-96 overflow-y-auto scrollbar-smooth">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pb-16">
+                  <style jsx>{`
                   .scrollbar-smooth {
                     scrollbar-width: thin;
                     scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
@@ -164,25 +178,25 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
                     background-color: rgba(156, 163, 175, 0.8);
                   }
                 `}</style>
-                {emotionCategories
-                  .find(cat => cat.name === selectedCategory)
-                  ?.emotions.map((emotion) => (
-                    <button
-                      key={emotion}
-                      onClick={() => handleEmotionSelect(emotion)}
-                      className={`py-2 px-3 text-sm rounded-lg transition-all duration-200 ease-in-out text-left transform hover:scale-105 ${
-                        selectedEmotions.includes(emotion)
+                  {emotionCategories
+                    .find(cat => cat.name === selectedCategory)
+                    ?.emotions.map((emotion) => (
+                      <button
+                        key={emotion}
+                        onClick={() => handleEmotionSelect(emotion)}
+                        className={`py-2 px-3 text-sm rounded-lg transition-all duration-200 ease-in-out text-left transform hover:scale-105 ${selectedEmotions.includes(emotion)
                           ? isNightMode
                             ? 'bg-blue-900/50 text-blue-200 border border-blue-700 shadow-sm'
                             : 'bg-blue-200 text-blue-800 border border-blue-300 shadow-sm'
                           : isNightMode
                             ? 'bg-gray-800/30 text-gray-200 hover:bg-blue-900/30 hover:shadow-sm'
                             : 'bg-gray-50 hover:bg-blue-100 hover:shadow-sm'
-                      }`}
-                    >
-                      {emotion}
-                    </button>
-                  ))}
+                          }`}
+                      >
+                        {emotion}
+                      </button>
+                    ))}
+                </div>
               </div>
             </div>
           )}
