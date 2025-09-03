@@ -2,6 +2,7 @@
 
 import Iridescence from './Iridescence'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ReviewSceneProps {
   onRetry: () => void
@@ -10,12 +11,13 @@ interface ReviewSceneProps {
 
 export default function ReviewScene({ onRetry, onComplete }: ReviewSceneProps) {
   const { textColor, isNightMode } = useTheme()
+  const { t } = useLanguage()
   
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 relative ${textColor} text-lg font-semibold tracking-tight`} style={{ fontFamily: '"SF Pro Rounded", "Inter", system-ui, sans-serif' }}>
       <div className="w-full max-w-md space-y-8">
         <h1 className={`text-2xl md:text-3xl font-semibold text-center ${textColor} tracking-tight`}>
-          感觉如何？
+          {t('review.title')}
         </h1>
 
         <div className="space-y-4">
@@ -31,7 +33,7 @@ export default function ReviewScene({ onRetry, onComplete }: ReviewSceneProps) {
               letterSpacing: '0.05em' 
             }}
           >
-            再次释放
+            {t('review.retry')}
           </button>
           
           <button
@@ -46,7 +48,7 @@ export default function ReviewScene({ onRetry, onComplete }: ReviewSceneProps) {
               letterSpacing: '0.05em' 
             }}
           >
-            更加自由了
+            {t('review.complete')}
           </button>
         </div>
       </div>

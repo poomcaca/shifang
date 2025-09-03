@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { challengeQuestions } from '@/data/questions'
+import { getChallengeQuestions } from '@/data'
 import Iridescence from './Iridescence'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ChallengeSceneProps {
   selectedEmotion: string
@@ -13,10 +14,13 @@ interface ChallengeSceneProps {
 
 export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: ChallengeSceneProps) {
   const { textColor, isNightMode } = useTheme()
+  const { language, t } = useLanguage()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
   const [showAnswer, setShowAnswer] = useState(false)
   const [currentAnswer, setCurrentAnswer] = useState('')
+  
+  const challengeQuestions = getChallengeQuestions(language)
 
   // 当问题索引变化时，重置答案显示状态
   useEffect(() => {
@@ -58,14 +62,14 @@ export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: 
               : 'bg-black/10 hover:bg-black/20 border-black/20 text-gray-900'
           }`}
         >
-          退出
+          {t('challenge.exit')}
         </button>
       </div>
 
       <div className="w-full max-w-md space-y-8">
         {/* 显示选择的感受 - 同排显示 */}
         <div className="flex items-baseline justify-center gap-2">
-        <span>我的感受:</span>
+        <span>{t('challenge.myFeeling')}</span>
           <span>{selectedEmotion}</span>
         </div>
 

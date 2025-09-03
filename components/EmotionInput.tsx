@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
-import { emotionCategories } from '@/data/emotions'
+import { getEmotionCategories } from '@/data'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface EmotionInputProps {
   onEmotionSelect: (emotion: string) => void
@@ -10,9 +11,13 @@ interface EmotionInputProps {
 
 export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
   const { textColor, secondaryTextColor, isNightMode } = useTheme()
+  const { language, t } = useLanguage()
   const [customEmotion, setCustomEmotion] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([])
+  
+  const emotionCategories = getEmotionCategories(language)
+  const separator = language === 'zh' ? '，' : ', '
 
   function handleCustomSubmit() {
     console.log('Button clicked, customEmotion:', customEmotion)
@@ -25,7 +30,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
     // 将选择的情感词条添加到文本框中
     const currentText = customEmotion.trim()
     const newText = currentText
-      ? `${currentText}，${emotion}`
+      ? `${currentText}${separator}${emotion}`
       : emotion
 
     setCustomEmotion(newText)
@@ -38,8 +43,8 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
 
   function removeEmotion(emotionToRemove: string) {
     // 从文本框中移除选择的情感词条
-    const emotions = customEmotion.split('，').filter(e => e.trim() !== emotionToRemove)
-    setCustomEmotion(emotions.join('，'))
+    const emotions = customEmotion.split(separator).filter(e => e.trim() !== emotionToRemove)
+    setCustomEmotion(emotions.join(separator))
 
     // 从已选择列表中移除
     setSelectedEmotions(selectedEmotions.filter(e => e !== emotionToRemove))
@@ -49,7 +54,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
         <h1 className={`text-2xl md:text-3xl font-bold text-center ${textColor}`}>
-          此刻，你的感受是什么？
+          {t('emotion.title')}
         </h1>
 
         {/* 自由输入框 */}
@@ -57,7 +62,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
           <textarea
             value={customEmotion}
             onChange={(e) => setCustomEmotion(e.target.value)}
-            placeholder="请描述你的感受..."
+            placeholder={t('emotion.placeholder')}
             className={`w-full h-32 p-4 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${isNightMode
               ? 'border-gray-600 bg-gray-800/50 text-white placeholder-gray-300'
               : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
@@ -98,7 +103,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
               : 'bg-blue-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700'
               }`}
           >
-            开始感受
+            {t('emotion.start')}
           </button>
         </div>
 
@@ -108,7 +113,7 @@ export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
         <div className="space-y-4">
           {/* 快捷词条选择 */}
           <div className="grid grid-cols-3 gap-2 mb-6">
-            {['想要安全', '想要被认同', '想要控制'].map((quickEmotion) => (
+            {[t('quick.safety'), t('quick.recognition'), t('quick.control')].map((quickEmotion) => (
               <button
                 key={quickEmotion}
                 onClick={() => handleEmotionSelect(quickEmotion)}

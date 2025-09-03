@@ -3,6 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 import AppBackground from '@/components/AppBackground'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
   title: '释放法引导',
@@ -41,10 +42,12 @@ export default function RootLayout({
         </Script>
 
         <ThemeProvider>
-          <AppBackground />
-          <main className="container mx-auto px-4 py-8 max-w-2xl relative z-10">
-            {children}
-          </main>
+          <LanguageProvider>
+            <AppBackground />
+            <main className="container mx-auto px-4 py-8 max-w-2xl relative z-10">
+              {children}
+            </main>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

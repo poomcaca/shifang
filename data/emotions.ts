@@ -1,5 +1,6 @@
 import { EmotionCategory } from '@/types'
 
+// 中文版情感词汇
 export const emotionCategories: EmotionCategory[] = [
   {
     name: '万念俱灰',

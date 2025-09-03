@@ -2,6 +2,7 @@
 
 import Iridescence from './Iridescence'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface EndSceneProps {
   onRestart: () => void
@@ -9,6 +10,7 @@ interface EndSceneProps {
 
 export default function EndScene({ onRestart }: EndSceneProps) {
   const { textColor, isNightMode } = useTheme()
+  const { t } = useLanguage()
   
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 relative ${textColor} text-lg font-semibold tracking-tight`} style={{ fontFamily: '"SF Pro Rounded", "Inter", system-ui, sans-serif' }}>
@@ -16,7 +18,7 @@ export default function EndScene({ onRestart }: EndSceneProps) {
         <div className="space-y-4">
           <div className="text-6xl">🎉</div>
           <h1 className={`text-2xl md:text-3xl font-semibold ${textColor} tracking-tight`}>
-            恭喜！完成了一次释放。
+            {t('end.title')}
           </h1>
         </div>
 
@@ -32,7 +34,7 @@ export default function EndScene({ onRestart }: EndSceneProps) {
             letterSpacing: '0.05em' 
           }}
         >
-          开始新的释放
+          {t('end.restart')}
         </button>
       </div>
     </div>

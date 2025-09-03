@@ -6,6 +6,7 @@ import ChallengeScene from '@/components/ChallengeScene'
 import ReviewScene from '@/components/ReviewScene'
 import EndScene from '@/components/EndScene'
 import AudioPlayer from '@/components/AudioPlayer'
+import LanguageToggle from '@/components/LanguageToggle'
 
 type Scene = 'input' | 'challenge' | 'review' | 'end'
 
@@ -51,6 +52,9 @@ export default function Home() {
 
   return (
     <div className={`transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+      {/* 语言切换按钮 */}
+      <LanguageToggle />
+      
       {currentScene === 'input' && (
         <div className="scene-enter">
           <EmotionInput onEmotionSelect={handleEmotionSelect} />

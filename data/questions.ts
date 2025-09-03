@@ -1,5 +1,6 @@
 import { Question } from '@/types'
 
+// 中文版问题
 export const challengeQuestions: Question[] = [
   {
     text: '你允许这个感受存在吗？',
