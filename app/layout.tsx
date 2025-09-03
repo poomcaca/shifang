@@ -6,8 +6,8 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
-  title: '释放法引导',
-  description: '',
+  title: 'Releasing Method Guide | 释放法引导',
+  description: 'A guided emotional release practice | 情绪释放引导练习',
 }
 
 export default function RootLayout({

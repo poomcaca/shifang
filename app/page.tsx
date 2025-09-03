@@ -7,6 +7,7 @@ import ReviewScene from '@/components/ReviewScene'
 import EndScene from '@/components/EndScene'
 import AudioPlayer from '@/components/AudioPlayer'
 import LanguageToggle from '@/components/LanguageToggle'
+import DynamicTitle from '@/components/DynamicTitle'
 
 type Scene = 'input' | 'challenge' | 'review' | 'end'
 
@@ -52,6 +53,9 @@ export default function Home() {
 
   return (
     <div className={`transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+      {/* 动态标题 */}
+      <DynamicTitle />
+      
       {/* 语言切换按钮 */}
       <LanguageToggle />
       

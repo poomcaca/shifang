@@ -21,8 +21,8 @@ const translations = {
     'emotion.start': '开始感受',
     
     // 快捷选项
-    'quick.safe': '想要安全',
-    'quick.approval': '想要被认同',
+    'quick.safety': '想要安全',
+    'quick.recognition': '想要被认同',
     'quick.control': '想要控制',
     
     // 情感分类
