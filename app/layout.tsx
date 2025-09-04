@@ -6,8 +6,8 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
-  title: 'Releasing Method Guide | 释放法引导',
-  description: 'A guided emotional release practice | 情绪释放引导练习',
+  title: 'Sedona Method Questions & Emotional Chart | SedonaRelease.online',
+  description: 'The Sedona Method, simplified—step‑by‑step release questions, 5 ways, emotions chart, and PDFs. Practice in your browser and feel lighter in minutes. Try it free.',
 }
 
 export default function RootLayout({
