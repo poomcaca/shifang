@@ -2,16 +2,17 @@
 
 import Iridescence from './Iridescence'
 import { useTheme } from '@/contexts/ThemeContext'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { Locale, getTranslation } from '@/lib/i18n'
 
 interface ReviewSceneProps {
   onRetry: () => void
   onComplete: () => void
+  locale: Locale
 }
 
-export default function ReviewScene({ onRetry, onComplete }: ReviewSceneProps) {
+export default function ReviewScene({ onRetry, onComplete, locale }: ReviewSceneProps) {
   const { textColor, isNightMode } = useTheme()
-  const { t } = useLanguage()
+  const t = (key: string) => getTranslation(locale, key)
   
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 relative ${textColor} text-lg font-semibold tracking-tight`} style={{ fontFamily: '"SF Pro Rounded", "Inter", system-ui, sans-serif' }}>

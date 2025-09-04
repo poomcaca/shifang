@@ -4,23 +4,24 @@ import React, { useState, useEffect } from 'react'
 import { getChallengeQuestions } from '@/data'
 import Iridescence from './Iridescence'
 import { useTheme } from '@/contexts/ThemeContext'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { Locale, getTranslation } from '@/lib/i18n'
 
 interface ChallengeSceneProps {
   selectedEmotion: string
   onComplete: () => void
   onExit: () => void
+  locale: Locale
 }
 
-export default function ChallengeScene({ selectedEmotion, onComplete, onExit }: ChallengeSceneProps) {
+export default function ChallengeScene({ selectedEmotion, onComplete, onExit, locale }: ChallengeSceneProps) {
   const { textColor, isNightMode } = useTheme()
-  const { language, t } = useLanguage()
+  const t = (key: string) => getTranslation(locale, key)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
   const [showAnswer, setShowAnswer] = useState(false)
   const [currentAnswer, setCurrentAnswer] = useState('')
   
-  const challengeQuestions = getChallengeQuestions(language)
+  const challengeQuestions = getChallengeQuestions(locale)
 
   // 当问题索引变化时，重置答案显示状态
   useEffect(() => {

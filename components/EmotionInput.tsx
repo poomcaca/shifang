@@ -3,21 +3,22 @@
 import React, { useState } from 'react'
 import { getEmotionCategories } from '@/data'
 import { useTheme } from '@/contexts/ThemeContext'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { Locale, getTranslation } from '@/lib/i18n'
 
 interface EmotionInputProps {
   onEmotionSelect: (emotion: string) => void
+  locale: Locale
 }
 
-export default function EmotionInput({ onEmotionSelect }: EmotionInputProps) {
+export default function EmotionInput({ onEmotionSelect, locale }: EmotionInputProps) {
   const { textColor, secondaryTextColor, isNightMode } = useTheme()
-  const { language, t } = useLanguage()
   const [customEmotion, setCustomEmotion] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([])
   
-  const emotionCategories = getEmotionCategories(language)
-  const separator = language === 'zh' ? '，' : ', '
+  const emotionCategories = getEmotionCategories(locale)
+  const separator = locale === 'zh' ? '，' : ', '
+  const t = (key: string) => getTranslation(locale, key)
 
   function handleCustomSubmit() {
     console.log('Button clicked, customEmotion:', customEmotion)

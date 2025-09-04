@@ -5,12 +5,13 @@ import { emotionCategories as emotionCategoriesEn } from './emotions-en'
 import { Question } from '@/types'
 import { challengeQuestions as challengeQuestionsZh } from './questions'
 import { challengeQuestions as challengeQuestionsEn } from './questions-en'
+import { Locale } from '@/lib/i18n'
 
-export function getEmotionCategories(language: 'zh' | 'en'): EmotionCategory[] {
+export function getEmotionCategories(language: Locale): EmotionCategory[] {
   return language === 'zh' ? emotionCategoriesZh : emotionCategoriesEn
 }
 
-export function getChallengeQuestions(language: 'zh' | 'en'): Question[] {
+export function getChallengeQuestions(language: Locale): Question[] {
   return language === 'zh' ? challengeQuestionsZh : challengeQuestionsEn
 }
 

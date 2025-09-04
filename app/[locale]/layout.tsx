@@ -1,38 +1,39 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import './globals.css'
+import '../globals.css'
 import AppBackground from '@/components/AppBackground'
 import { ThemeProvider } from '@/contexts/ThemeContext'
-import { GetServerSidePropsContext } from 'next'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { Locale } from '@/lib/i18n'
 
 // 根据语言生成元数据
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const locale = params?.locale || 'zh'
-
+export async function generateMetadata({ params }: { params: { locale: Locale } }): Promise<Metadata> {
+  const locale = params.locale
+  
   const titles = {
     zh: 'Sedona Method Questions & Emotional Chart | SedonaRelease.online',
     en: 'Sedona Method Questions & Emotional Chart | SedonaRelease.online'
   }
-
+  
   const descriptions = {
     zh: 'The Sedona Method, simplified—step‑by‑step release questions, 5 ways, emotions chart, and PDFs. Practice in your browser and feel lighter in minutes. Try it free.',
     en: 'The Sedona Method, simplified—step‑by‑step release questions, 5 ways, emotions chart, and PDFs. Practice in your browser and feel lighter in minutes. Try it free.'
   }
 
   return {
-    title: titles[locale as keyof typeof titles] || titles.zh,
-    description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+    title: titles[locale] || titles.zh,
+    description: descriptions[locale] || descriptions.zh,
   }
 }
 
-export default function RootLayout({
+export default function LocaleLayout({
   children,
   params
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
-  const locale = params?.locale || 'zh'
+  const locale = params.locale
   const htmlLang = locale === 'en' ? 'en' : 'zh-CN'
 
   return (
@@ -62,6 +63,7 @@ export default function RootLayout({
         </Script>
 
         <ThemeProvider>
+          <LanguageSwitcher currentLocale={locale} />
           <AppBackground />
           <main className="container mx-auto px-4 py-8 max-w-2xl relative z-10">
             {children}
@@ -70,4 +72,4 @@ export default function RootLayout({
       </body>
     </html>
   )
-} 
+}

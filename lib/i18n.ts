@@ -1,19 +1,7 @@
-'use client'
-
-import React, { createContext, useContext, useState, useEffect } from 'react'
-
-export type Language = 'zh' | 'en'
-
-interface LanguageContextType {
-  language: Language
-  setLanguage: (lang: Language) => void
-  t: (key: string) => string
-}
-
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+export type Locale = 'zh' | 'en'
 
 // 翻译文本
-const translations = {
+export const translations = {
   zh: {
     // 主要界面
     'emotion.title': '此刻，你的感受是什么？',
@@ -108,47 +96,8 @@ const translations = {
     'common.restart': 'Start Over',
     'common.exit': 'Exit'
   }
-}
+} as const
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('zh')
-
-  useEffect(() => {
-    // 检查本地存储
-    const savedLang = localStorage.getItem('preferred-language') as Language
-    if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
-      setLanguage(savedLang)
-    } else {
-      // 检测浏览器语言
-      const browserLang = navigator.language.toLowerCase()
-      if (browserLang.startsWith('en')) {
-        setLanguage('en')
-      } else if (browserLang.startsWith('zh')) {
-        setLanguage('zh')
-      }
-    }
-  }, [])
-
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang)
-    localStorage.setItem('preferred-language', lang)
-  }
-
-  const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key
-  }
-
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
-  )
-}
-
-export function useLanguage() {
-  const context = useContext(LanguageContext)
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider')
-  }
-  return context
+export function getTranslation(locale: Locale, key: string): string {
+  return translations[locale][key as keyof typeof translations[typeof locale]] || key
 }

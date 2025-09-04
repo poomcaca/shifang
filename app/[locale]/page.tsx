@@ -6,12 +6,12 @@ import ChallengeScene from '@/components/ChallengeScene'
 import ReviewScene from '@/components/ReviewScene'
 import EndScene from '@/components/EndScene'
 import AudioPlayer from '@/components/AudioPlayer'
-import LanguageToggle from '@/components/LanguageToggle'
 import DynamicTitle from '@/components/DynamicTitle'
+import { Locale } from '@/lib/i18n'
 
 type Scene = 'input' | 'challenge' | 'review' | 'end'
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: Locale } }) {
   const [currentScene, setCurrentScene] = useState<Scene>('input')
   const [selectedEmotion, setSelectedEmotion] = useState('')
   const [isTransitioning, setIsTransitioning] = useState(false)
@@ -54,14 +54,11 @@ export default function Home() {
   return (
     <div className={`transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
       {/* 动态标题 */}
-      <DynamicTitle />
-      
-      {/* 语言切换按钮 */}
-      <LanguageToggle />
+      <DynamicTitle locale={params.locale} />
       
       {currentScene === 'input' && (
         <div className="scene-enter">
-          <EmotionInput onEmotionSelect={handleEmotionSelect} />
+          <EmotionInput onEmotionSelect={handleEmotionSelect} locale={params.locale} />
         </div>
       )}
       
@@ -71,6 +68,7 @@ export default function Home() {
             selectedEmotion={selectedEmotion}
             onComplete={handleChallengeComplete}
             onExit={handleExit}
+            locale={params.locale}
           />
         </div>
       )}
@@ -80,13 +78,14 @@ export default function Home() {
           <ReviewScene
             onRetry={handleRetry}
             onComplete={handleComplete}
+            locale={params.locale}
           />
         </div>
       )}
       
       {currentScene === 'end' && (
         <div className="scene-enter">
-          <EndScene onRestart={handleRestart} />
+          <EndScene onRestart={handleRestart} locale={params.locale} />
         </div>
       )}
       
@@ -94,4 +93,4 @@ export default function Home() {
       <AudioPlayer />
     </div>
   )
-} 
+}
