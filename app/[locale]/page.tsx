@@ -1,93 +1,80 @@
-'use client'
+import React from 'react'
+import { Locale, getTranslation } from '@/lib/i18n'
+import { getEmotionCategories } from '@/data'
+import InteractiveApp from '@/components/InteractiveApp'
 
-import React, { useState, useEffect } from 'react'
-import EmotionInput from '@/components/EmotionInput'
-import ChallengeScene from '@/components/ChallengeScene'
-import ReviewScene from '@/components/ReviewScene'
-import EndScene from '@/components/EndScene'
-import AudioPlayer from '@/components/AudioPlayer'
+// 生成静态参数用于预渲染
+export async function generateStaticParams() {
+  return [
+    { locale: 'zh' },
+    { locale: 'en' }
+  ]
+}
 
-import { Locale } from '@/lib/i18n'
-
-type Scene = 'input' | 'challenge' | 'review' | 'end'
+// 为每个语言版本生成元数据
+export async function generateMetadata({ params }: { params: { locale: Locale } }) {
+  const locale = params.locale
+  const t = (key: string) => getTranslation(locale, key)
+  
+  return {
+    title: t('seo.title'),
+    description: t('seo.description'),
+    keywords: t('seo.keywords'),
+    openGraph: {
+      title: t('seo.title'),
+      description: t('seo.description'),
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+    },
+    alternates: {
+      languages: {
+        'zh-CN': '/zh',
+        'en': '/en',
+      },
+    },
+  }
+}
 
 export default function Home({ params }: { params: { locale: Locale } }) {
-  const [currentScene, setCurrentScene] = useState<Scene>('input')
-  const [selectedEmotion, setSelectedEmotion] = useState('')
-  const [isTransitioning, setIsTransitioning] = useState(false)
-
-  function handleSceneChange(newScene: Scene) {
-    setIsTransitioning(true)
-    setTimeout(() => {
-      setCurrentScene(newScene)
-      setIsTransitioning(false)
-    }, 150) // 短暂的过渡时间
-  }
-
-  function handleEmotionSelect(emotion: string) {
-    setSelectedEmotion(emotion)
-    handleSceneChange('challenge')
-  }
-
-  function handleChallengeComplete() {
-    handleSceneChange('review')
-  }
-
-  function handleRetry() {
-    handleSceneChange('challenge')
-  }
-
-  function handleComplete() {
-    handleSceneChange('end')
-  }
-
-  function handleRestart() {
-    setSelectedEmotion('')
-    handleSceneChange('input')
-  }
-
-  function handleExit() {
-    setSelectedEmotion('')
-    handleSceneChange('input')
-  }
+  const locale = params.locale
+  const t = (key: string) => getTranslation(locale, key)
+  const emotionCategories = getEmotionCategories(locale)
 
   return (
-    <div className={`transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-      {currentScene === 'input' && (
-        <div className="scene-enter">
-          <EmotionInput onEmotionSelect={handleEmotionSelect} locale={params.locale} />
-        </div>
-      )}
-      
-      {currentScene === 'challenge' && (
-        <div className="scene-enter">
-          <ChallengeScene
-            selectedEmotion={selectedEmotion}
-            onComplete={handleChallengeComplete}
-            onExit={handleExit}
-            locale={params.locale}
-          />
-        </div>
-      )}
-      
-      {currentScene === 'review' && (
-        <div className="scene-enter">
-          <ReviewScene
-            onRetry={handleRetry}
-            onComplete={handleComplete}
-            locale={params.locale}
-          />
-        </div>
-      )}
-      
-      {currentScene === 'end' && (
-        <div className="scene-enter">
-          <EndScene onRestart={handleRestart} locale={params.locale} />
-        </div>
-      )}
-      
-      {/* 音频播放器 - 固定在右下角 */}
-      <AudioPlayer />
-    </div>
+    <>
+      {/* SEO 友好的静态内容 - 搜索引擎可见 */}
+      <div className="seo-content">
+        <h1>{t('seo.h1')}</h1>
+        <p>{t('seo.intro')}</p>
+        
+        <h2>{t('seo.howItWorks')}</h2>
+        <ol>
+          <li>{t('seo.step1')}</li>
+          <li>{t('seo.step2')}</li>
+          <li>{t('seo.step3')}</li>
+          <li>{t('seo.step4')}</li>
+        </ol>
+
+        <h2>{t('seo.emotionCategories')}</h2>
+        <ul>
+          {emotionCategories.map((category) => (
+            <li key={category.name}>
+              <strong>{category.name}:</strong> {category.emotions.slice(0, 5).join(', ')}
+              {category.emotions.length > 5 && '...'}
+            </li>
+          ))}
+        </ul>
+
+        <h2>{t('seo.benefits')}</h2>
+        <ul>
+          <li>{t('seo.benefit1')}</li>
+          <li>{t('seo.benefit2')}</li>
+          <li>{t('seo.benefit3')}</li>
+        </ul>
+      </div>
+
+      {/* 交互式应用 */}
+      <InteractiveApp locale={locale} />
+    </>
   )
 }

@@ -53,4 +53,39 @@
 
 .scene-exit {
   animation: scene-exit 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}/* SEO 友好
+的内容样式 */
+.seo-content {
+  /* 对用户隐藏但对搜索引擎可见 */
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* 确保交互式应用占据全部视觉空间 */
+.interactive-app {
+  position: relative;
+  z-index: 1;
+}
+
+/* 媒体查询：在打印或无 JavaScript 时显示 SEO 内容 */
+@media print, (scripting: none) {
+  .seo-content {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .interactive-app {
+    display: none;
+  }
 }

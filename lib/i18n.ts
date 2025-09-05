@@ -3,6 +3,23 @@ export type Locale = 'zh' | 'en'
 // 翻译文本
 export const translations = {
   zh: {
+    // SEO 相关
+    'seo.title': 'Sedona Method 释放法 - 情感释放练习工具 | SedonaRelease.online',
+    'seo.description': 'Sedona Method 释放法在线练习工具，通过简单的问题引导释放负面情绪，获得内心平静。免费使用，支持中英文。',
+    'seo.keywords': 'Sedona Method, 释放法, 情感释放, 冥想, 心理健康, 情绪管理, 内观, 正念',
+    'seo.h1': 'Sedona Method 情感释放练习',
+    'seo.intro': 'Sedona Method 是一种简单而有效的情感释放技巧，帮助你放下负面情绪，获得内心的平静与自由。',
+    'seo.howItWorks': '如何使用',
+    'seo.step1': '选择或描述你当前的感受',
+    'seo.step2': '跟随引导问题进行内观',
+    'seo.step3': '诚实回答每个问题',
+    'seo.step4': '体验情感的自然释放',
+    'seo.emotionCategories': '情感分类',
+    'seo.benefits': '练习益处',
+    'seo.benefit1': '减少压力和焦虑',
+    'seo.benefit2': '提升情绪稳定性',
+    'seo.benefit3': '增强内心平静感',
+    
     // 主要界面
     'emotion.title': '此刻，你的感受是什么？',
     'emotion.placeholder': '请描述你的感受...',
@@ -50,6 +67,23 @@ export const translations = {
     'common.exit': '退出'
   },
   en: {
+    // SEO 相关
+    'seo.title': 'Sedona Method Questions & Emotional Release Tool | SedonaRelease.online',
+    'seo.description': 'Practice the Sedona Method online with guided questions for emotional release. Simple, effective technique for letting go of negative emotions and finding inner peace.',
+    'seo.keywords': 'Sedona Method, emotional release, letting go, meditation, mental health, emotional wellness, mindfulness, inner peace',
+    'seo.h1': 'Sedona Method Emotional Release Practice',
+    'seo.intro': 'The Sedona Method is a simple yet powerful technique for releasing unwanted emotions and finding inner peace and freedom.',
+    'seo.howItWorks': 'How It Works',
+    'seo.step1': 'Choose or describe your current feeling',
+    'seo.step2': 'Follow the guided inquiry questions',
+    'seo.step3': 'Answer each question honestly',
+    'seo.step4': 'Experience natural emotional release',
+    'seo.emotionCategories': 'Emotion Categories',
+    'seo.benefits': 'Benefits of Practice',
+    'seo.benefit1': 'Reduce stress and anxiety',
+    'seo.benefit2': 'Improve emotional stability',
+    'seo.benefit3': 'Enhance inner peace',
+    
     // 主要界面
     'emotion.title': 'How are you feeling right now?',
     'emotion.placeholder': 'Describe your feelings...',

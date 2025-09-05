@@ -9,12 +9,12 @@ import { Locale } from '@/lib/i18n'
 // 根据语言生成元数据
 export async function generateMetadata({ params }: { params: { locale: Locale } }): Promise<Metadata> {
   const locale = params.locale
-  
+
   const titles = {
     zh: 'Sedona Method Questions & Emotional Chart | SedonaRelease.online',
     en: 'Sedona Method Questions & Emotional Chart | SedonaRelease.online'
   }
-  
+
   const descriptions = {
     zh: 'The Sedona Method, simplified—step‑by‑step release questions, 5 ways, emotions chart, and PDFs. Practice in your browser and feel lighter in minutes. Try it free.',
     en: 'The Sedona Method, simplified—step‑by‑step release questions, 5 ways, emotions chart, and PDFs. Practice in your browser and feel lighter in minutes. Try it free.'
@@ -36,8 +36,33 @@ export default function LocaleLayout({
   const locale = params.locale
   const htmlLang = locale === 'en' ? 'en' : 'zh-CN'
 
+  // 结构化数据
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": locale === 'zh' ? "Sedona Method 释放法练习工具" : "Sedona Method Practice Tool",
+    "description": locale === 'zh'
+      ? "在线 Sedona Method 情感释放练习工具，帮助释放负面情绪，获得内心平静"
+      : "Online Sedona Method emotional release practice tool for letting go of negative emotions",
+    "url": `https://sedonarelease.online/${locale}`,
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "inLanguage": locale === 'zh' ? "zh-CN" : "en-US"
+  }
+
   return (
     <html lang={htmlLang}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body className="min-h-screen bg-white text-gray-900 antialiased relative overflow-hidden">
         {/* Google Analytics */}
         <Script
