@@ -15,6 +15,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { locale: Locale } }) {
   const locale = params.locale
   const t = (key: string) => getTranslation(locale, key)
+  const baseUrl = 'https://sedonarelease.online'
+  const canonical = `${baseUrl}/${locale}`
   
   return {
     title: t('seo.title'),
@@ -27,6 +29,7 @@ export async function generateMetadata({ params }: { params: { locale: Locale } 
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
     },
     alternates: {
+      canonical,
       languages: {
         'zh-CN': '/zh',
         'en': '/en',
