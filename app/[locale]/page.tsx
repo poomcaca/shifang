@@ -6,7 +6,7 @@ import ChallengeScene from '@/components/ChallengeScene'
 import ReviewScene from '@/components/ReviewScene'
 import EndScene from '@/components/EndScene'
 import AudioPlayer from '@/components/AudioPlayer'
-import DynamicTitle from '@/components/DynamicTitle'
+
 import { Locale } from '@/lib/i18n'
 
 type Scene = 'input' | 'challenge' | 'review' | 'end'
@@ -53,9 +53,6 @@ export default function Home({ params }: { params: { locale: Locale } }) {
 
   return (
     <div className={`transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-      {/* 动态标题 */}
-      <DynamicTitle locale={params.locale} />
-      
       {currentScene === 'input' && (
         <div className="scene-enter">
           <EmotionInput onEmotionSelect={handleEmotionSelect} locale={params.locale} />
