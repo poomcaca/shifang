@@ -4,11 +4,10 @@ import React, { useState } from 'react'
 import EmotionInput from '@/components/EmotionInput'
 import ChallengeScene from '@/components/ChallengeScene'
 import ReviewScene from '@/components/ReviewScene'
-import EndScene from '@/components/EndScene'
 import AudioPlayer from '@/components/AudioPlayer'
 import { Locale } from '@/lib/i18n'
 
-type Scene = 'input' | 'challenge' | 'review' | 'end'
+type Scene = 'input' | 'challenge' | 'review'
 
 interface InteractiveAppProps {
   locale: Locale
@@ -38,10 +37,6 @@ export default function InteractiveApp({ locale }: InteractiveAppProps) {
 
   function handleRetry() {
     handleSceneChange('challenge')
-  }
-
-  function handleComplete() {
-    handleSceneChange('end')
   }
 
   function handleRestart() {
@@ -77,15 +72,9 @@ export default function InteractiveApp({ locale }: InteractiveAppProps) {
         <div className="scene-enter">
           <ReviewScene
             onRetry={handleRetry}
-            onComplete={handleComplete}
+            onRestart={handleRestart}
             locale={locale}
           />
-        </div>
-      )}
-      
-      {currentScene === 'end' && (
-        <div className="scene-enter">
-          <EndScene onRestart={handleRestart} locale={locale} />
         </div>
       )}
       

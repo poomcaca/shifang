@@ -60,6 +60,11 @@ export const translations = {
     'end.title': '恭喜！完成了一次释放。',
     'end.restart': '开始新的释放',
     
+    // 庆祝动画
+    'celebration.title': '释放完成',
+    'celebration.subtitle': '你已经成功释放了这一刻的情绪',
+    'celebration.home': '回到首页',
+    
     // 通用
     'common.retry': '重试',
     'common.complete': '完成',
@@ -131,6 +136,11 @@ export const translations = {
     // 结束场景
     'end.title': 'Congratulations! You completed a release.',
     'end.restart': 'Start New Release',
+    
+    // 庆祝动画
+    'celebration.title': 'Release Complete',
+    'celebration.subtitle': 'You have successfully released this moment',
+    'celebration.home': 'Back to Home',
     
     // 通用
     'common.retry': 'Try Again',
