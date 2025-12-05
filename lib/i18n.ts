@@ -64,7 +64,15 @@ export const translations = {
     'common.retry': '重试',
     'common.complete': '完成',
     'common.restart': '重新开始',
-    'common.exit': '退出'
+    'common.exit': '退出',
+    'common.back': '返回',
+    
+    // 自由六步
+    'sixSteps.title': '自由六步',
+    'sixSteps.subtitle': '点击每一步，开始你的释放旅程',
+    'sixSteps.link': '自由六步骤',
+    'sixSteps.clickToProgress': '点击卡片推进',
+    'sixSteps.complete': '释放完成 ✨'
   },
   en: {
     // SEO 相关
@@ -128,7 +136,15 @@ export const translations = {
     'common.retry': 'Try Again',
     'common.complete': 'Complete',
     'common.restart': 'Start Over',
-    'common.exit': 'Exit'
+    'common.exit': 'Exit',
+    'common.back': 'Back',
+    
+    // 自由六步
+    'sixSteps.title': 'Six Steps to Freedom',
+    'sixSteps.subtitle': 'Click each step to begin your release journey',
+    'sixSteps.link': 'Learn the Six Steps',
+    'sixSteps.clickToProgress': 'Click cards to progress',
+    'sixSteps.complete': 'Release Complete ✨'
   }
 } as const
 
