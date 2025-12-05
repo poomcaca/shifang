@@ -11,11 +11,6 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
   
-  // 实验性功能
-  experimental: {
-    optimizeCss: true,
-  },
-  
   // 头部优化
   async headers() {
     return [
