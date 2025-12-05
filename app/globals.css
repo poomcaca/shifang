@@ -53,6 +53,18 @@
 
 .scene-exit {
   animation: scene-exit 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}
+
+/* 抽屉滑入动画 */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }/* SEO 友好
 的内容样式 */
 .seo-content {
