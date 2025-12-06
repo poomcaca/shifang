@@ -4,6 +4,14 @@ import SixSteps from '@/components/SixSteps'
 import { Locale } from '@/lib/i18n'
 import { Metadata } from 'next'
 
+// 将 /[locale]/six-steps 也静态预渲染，避免在 Cloudflare 上以 Node.js 运行
+export async function generateStaticParams() {
+  return [
+    { locale: 'zh' },
+    { locale: 'en' },
+  ]
+}
+
 export async function generateMetadata({ params }: { params: { locale: Locale } }): Promise<Metadata> {
   const isZh = params.locale === 'zh'
   return {
