@@ -3,13 +3,8 @@ import { Locale, getTranslation } from '@/lib/i18n'
 import { getEmotionCategories } from '@/data'
 import InteractiveApp from '@/components/InteractiveApp'
 
-// 生成静态参数用于预渲染
-export async function generateStaticParams() {
-  return [
-    { locale: 'zh' },
-    { locale: 'en' }
-  ]
-}
+// 在 Cloudflare Pages 上使用 Edge Runtime 进行动态渲染
+export const runtime = 'edge'
 
 // 为每个语言版本生成元数据
 export async function generateMetadata({ params }: { params: { locale: Locale } }) {
