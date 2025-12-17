@@ -7,41 +7,7 @@ import { Check, ArrowLeft } from 'lucide-react'
 import { useTheme } from '@/contexts/ThemeContext'
 import Link from 'next/link'
 import { Locale, getTranslation } from '@/lib/i18n'
-
-const steps = [
-    {
-        id: 1,
-        content: '你必须想要自由超过想要世界。',
-        subContent: '（你必须想要自由超过想要认同和控制，认同和控制=世界）',
-        contentEn: 'You must want freedom more than you want the world.',
-        subContentEn: '(You must want freedom more than wanting approval and control. Approval and control = the world)',
-    },
-    {
-        id: 2,
-        content: '做出自由的决定。',
-        contentEn: 'Make the decision to go free.',
-    },
-    {
-        id: 3,
-        content: '所有感受都来自想要控制和想要被认同，它们都是生存程序。释放它们。',
-        contentEn: 'All feelings culminate in two wants: wanting approval and wanting control. They are survival programs. Release them.',
-    },
-    {
-        id: 4,
-        content: '持续释放。',
-        contentEn: 'Make release constant.',
-    },
-    {
-        id: 5,
-        content: '当你卡住时，释放那个对于卡住的感觉的想要改变。',
-        contentEn: 'If you get stuck, let go of the wanting to change the stuckness.',
-    },
-    {
-        id: 6,
-        content: '每次你释放，你都更愉悦、轻松、脱离限制，随着释放，你会越来越愉悦、轻松、脱离限制。',
-        contentEn: 'Each time you release, you are happier and lighter. You have more motivation to go free.',
-    },
-]
+import { sixSteps } from '@/data/six-steps'
 
 interface SixStepsProps {
     locale: Locale
@@ -58,7 +24,7 @@ export default function SixSteps({ locale }: SixStepsProps) {
             const newCompleted = [...completedSteps, id]
             setCompletedSteps(newCompleted)
             
-            if (newCompleted.length === steps.length) {
+            if (newCompleted.length === sixSteps.length) {
                 setTimeout(() => {
                     setIsWaveActive(true)
                 }, 500)
@@ -66,7 +32,7 @@ export default function SixSteps({ locale }: SixStepsProps) {
         }
     }
 
-    const progress = (completedSteps.length / steps.length) * 100
+    const progress = (completedSteps.length / sixSteps.length) * 100
 
     return (
         <div className="relative min-h-screen w-full max-w-2xl mx-auto px-4 pt-4 pb-20 flex flex-col items-center">
@@ -108,7 +74,7 @@ export default function SixSteps({ locale }: SixStepsProps) {
             {/* Steps List */}
             <div className="w-full space-y-3 relative mb-16">
 
-                {steps.map((step, index) => {
+                {sixSteps.map((step, index) => {
                     const isCompleted = completedSteps.includes(step.id)
                     const content = locale === 'zh' ? step.content : step.contentEn
                     const subContent = locale === 'zh' ? step.subContent : step.subContentEn
@@ -204,7 +170,7 @@ export default function SixSteps({ locale }: SixStepsProps) {
                         "flex justify-between text-xs mb-1.5 font-medium px-1",
                         isNightMode ? "text-white/70" : "text-slate-600"
                     )}>
-                        <span>{completedSteps.length} / {steps.length}</span>
+                        <span>{completedSteps.length} / {sixSteps.length}</span>
                         <span>
                             {isWaveActive 
                                 ? t('sixSteps.complete') 
