@@ -6,6 +6,9 @@ import { ArrowLeft } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
 import { useTheme } from '@/contexts/ThemeContext'
 
+// 在 Cloudflare Pages 上使用 Edge Runtime
+export const runtime = 'edge'
+
 export default function AboutPage({ params }: { params: { locale: Locale } }) {
   const { textColor, isNightMode } = useTheme()
   const locale = params.locale

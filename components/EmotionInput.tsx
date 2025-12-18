@@ -83,7 +83,7 @@ export default function EmotionInput({ onEmotionSelect, locale }: EmotionInputPr
         </h1>
 
         {/* 自由六步入口 */}
-        <div className="flex justify-center items-center gap-4">
+        <div className="text-center">
           <Link 
             href={`/${locale}/six-steps`}
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
@@ -93,18 +93,6 @@ export default function EmotionInput({ onEmotionSelect, locale }: EmotionInputPr
             }`}
           >
             <span>{t('sixSteps.link')}</span>
-            <span>→</span>
-          </Link>
-
-          <Link
-            href={`/${locale}/about`}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
-              isNightMode
-                ? 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
-                : 'bg-white/60 text-slate-700 hover:bg-white/80 border border-slate-200/50'
-            }`}
-          >
-            <span>{locale === 'zh' ? '关于“这里”' : 'About Here'}</span>
             <span>→</span>
           </Link>
         </div>
